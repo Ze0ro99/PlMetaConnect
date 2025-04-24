@@ -1,0 +1,44 @@
+MIT License
+
+Copyright (c) 2025 Ze0r099
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+Pi Network Compliance:
+This project, PiMetaConnect, integrates with the Pi Network ecosystem and uses
+resources licensed under the Pi Open Source (PiOS) software license. Any use,
+modification, or distribution of Pi Network tools, APIs, or blockchain components
+included in this project must comply with the PiOS license terms, available at
+https://github.com/pi-apps/PiOS. Users are also subject to Pi Network's Terms of
+Service (https://socialchain.app/tos), including prohibitions on reverse-engineering
+or unauthorized use of Pi Network resources.
+
+Third-Party Contributions:
+Contributions to this project, including code, assets, or documentation, are
+assumed to be licensed under this MIT License unless otherwise specified. Contributors
+must ensure their contributions do not violate third-party licenses, including those
+associated with Pi Network tools or other dependencies.
+
+Metaverse and NFT Assets:
+Certain assets in the /metaverse/ and /blockchain/ directories, including 3D models,
+scripts, and smart contracts, are proprietary to Ze0r099. These assets may only be used
+within the PiMetaConnect project and may not be extracted, modified, or redistributed
+for other purposes without express written permission from Ze0r099.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+For inquiries, contact: [kamelkadah910@gmail.com]
