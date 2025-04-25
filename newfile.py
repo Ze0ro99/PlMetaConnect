@@ -2,22 +2,23 @@
 """
 PiMetaConnect App Icon Generator
 ================================
-This script generates app icons for the PiMetaConnect project across multiple platforms (Android, iOS, PWA, and WebGL for Unity Metaverse).
-Icons are organized in the project structure and optimized for use in client, server, and metaverse components.
+Generates app icons for PiMetaConnect across multiple platforms (Android, iOS, PWA, and Unity WebGL).
+Icons are organized within the project structure and optimized for frontend, metaverse, and mobile platforms.
 
 Dependencies:
 - Pillow (install via `pip install Pillow`)
 
 Usage:
-1. Place the input image in `client/assets/raw/M_and_C_logo.png`.
+1. Place the input image in `client/assets/raw/logo.png`.
 2. Update `input_image_path` and `output_base_dir` in `main()` if needed.
 3. Run: `python scripts/generate_app_icons.py`
 
 Output:
 - Icons in `client/assets/icons/` (for frontend and PWA)
 - Icons in `metaverse/Assets/Icons/` (for Unity WebGL)
-- A manifest.json file in `client/public/` for PWA
-- Updated README.md in `docs/` with icon previews
+- Icons in `client/android/mipmap/` and `client/ios/AppIcon/` (for mobile)
+- A `manifest.json` file in `client/public/` for PWA
+- Updated `docs/README.md` with icon previews
 """
 
 import os
@@ -25,7 +26,7 @@ import sys
 import json
 from PIL import Image, ImageEnhance
 
-# التحقق من تثبيت مكتبة Pillow
+# Check for Pillow installation
 try:
     from PIL import Image
 except ImportError:
@@ -100,7 +101,7 @@ def update_readme(readme_path, icon_sizes):
     icon_section = """
 ## App Icon
 
-The PiMetaConnect app icon represents the project's innovative vision for a decentralized metaverse.
+The PiMetaConnect app icon embodies the project's vision for a decentralized metaverse.
 
 <p align="center">
   <img src="../client/assets/icons/app_icon_512x512.png" alt="PiMetaConnect Icon" width="200" style="border-radius: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
@@ -152,17 +153,17 @@ def prepare_app_icon(input_path, output_base_dir, base_size=1024, quality=95, pl
         print(f"ERROR: Failed to resize image: {e}")
         return
 
-    # إعدادات المنصات
+    # Platform configurations
     if platform_configs is None:
         platform_configs = {
             "client": {
-                "sizes": [512, 256, 192, 180, 120],  # لـ PWA وfrontend
+                "sizes": [512, 256, 192, 180, 120],  # For PWA and frontend
                 "folder": "client/assets/icons",
                 "prefix": "app_icon",
                 "generate_manifest": True
             },
             "metaverse": {
-                "sizes": [256, 128],  # لـ Unity WebGL
+                "sizes": [256, 128],  # For Unity WebGL
                 "folder": "metaverse/Assets/Icons",
                 "prefix": "metaverse_icon"
             },
@@ -178,7 +179,7 @@ def prepare_app_icon(input_path, output_base_dir, base_size=1024, quality=95, pl
             }
         }
 
-    # حفظ الصورة الأساسية
+    # Save base icon
     base_output_dir = os.path.join(output_base_dir, "base")
     os.makedirs(base_output_dir, exist_ok=True)
     base_output_path = os.path.join(base_output_dir, f"app_icon_{base_size}x{base_size}.png")
@@ -188,7 +189,7 @@ def prepare_app_icon(input_path, output_base_dir, base_size=1024, quality=95, pl
     except Exception as e:
         print(f"ERROR: Failed to save base icon: {e}")
 
-    # إنشاء الأيقونات لكل منصة
+    # Generate icons for each platform
     for platform, config in platform_configs.items():
         platform_dir = os.path.join(output_base_dir, config["folder"])
         os.makedirs(platform_dir, exist_ok=True)
@@ -202,23 +203,23 @@ def prepare_app_icon(input_path, output_base_dir, base_size=1024, quality=95, pl
             except Exception as e:
                 print(f"ERROR: Failed to generate {platform} icon ({size}x{size}): {e}")
 
-        # إنشاء manifest.json لـ PWA
+        # Generate manifest.json for PWA
         if platform == "client" and config.get("generate_manifest", False):
             generate_manifest_json(os.path.join(output_base_dir, "client/public"), config["sizes"])
 
-    # تحديث README.md
+    # Update README.md
     update_readme(os.path.join(output_base_dir, "docs/README.md"), platform_configs["client"]["sizes"])
 
 def main():
     """
     Main function to run the icon generator for PiMetaConnect.
     """
-    # مسارات المشروع
+    # Project paths
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    input_image_path = os.path.join(project_root, "client/assets/raw/M_and_C_logo.png")
+    input_image_path = os.path.join(project_root, "client/assets/raw/logo.png")
     output_base_dir = project_root
 
-    # إعدادات التخصيص
+    # Configuration settings
     settings = {
         "base_size": 1024,
         "quality": 95,
