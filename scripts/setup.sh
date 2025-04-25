@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Starting PiMetaConnect setup..."
 
-# التحقق من تثبيت Python وPillow
+# Check for Python and Pillow
 echo "Checking Python and Pillow..."
 if ! command -v python3 &> /dev/null; then
     echo "ERROR: Python3 is not installed. Please install it."
@@ -16,7 +16,7 @@ if ! python3 -c "import PIL" &> /dev/null; then
     fi
 fi
 
-# توليد أيقونات التطبيق
+# Generate app icons
 echo "Generating app icons..."
 cd scripts
 python3 generate_app_icons.py
@@ -26,7 +26,7 @@ if [ $? -ne 0 ]; then
 fi
 cd ..
 
-# تثبيت تبعيات الـ Frontend
+# Install frontend dependencies
 echo "Installing frontend dependencies..."
 cd client
 yarn install
@@ -35,7 +35,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# تثبيت تبعيات الـ Backend
+# Install backend dependencies
 echo "Installing backend dependencies..."
 cd ../server
 yarn install
@@ -44,7 +44,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# تثبيت تبعيات الـ Blockchain
+# Install blockchain dependencies
 echo "Installing blockchain dependencies..."
 cd ../blockchain
 yarn install
@@ -53,7 +53,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# بناء مشروع الميتافيرس في Unity
+# Build Unity metaverse project
 echo "Building Unity metaverse project..."
 cd ../metaverse
 unity -batchmode -projectPath . -buildTarget WebGL -executeMethod BuildScript.Build
@@ -62,7 +62,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# نشر العقود الذكية لـ NFT
+# Deploy NFT smart contracts
 echo "Deploying NFT smart contracts..."
 cd ../blockchain
 npx hardhat run scripts/deploy.js --network localhost
@@ -71,7 +71,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# تشغيل الخدمات باستخدام Docker Compose
+# Start services with Docker Compose
 echo "Starting services with Docker Compose..."
 cd ..
 docker-compose up -d
