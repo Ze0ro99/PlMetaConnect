@@ -1,0 +1,61 @@
+entrypoint = "index.js"
+modules = ["nodejs-22"]
+hidden = [".config", "package-lock.json"]
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", "package.json", "package-lock.json"]
+
+[nix]
+channel = "stable-24_11"
+
+[deployment]
+run = ["bash", "setup_replit_pimeta.sh"]
+deploymentTarget = "autoscale"
+ignorePorts = false
+
+[workflows]
+runButton = "Full Stack"
+
+[[workflows.workflow]]
+name = "Frontend"
+author = 41474362
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd PiMetaConnect/client && npm start"
+
+[[workflows.workflow]]
+name = "Backend"
+author = 41474362
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd PiMetaConnect/server && npm start"
+
+[[workflows.workflow]]
+name = "Blockchain"
+author = 41474362
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd PiMetaConnect/blockchain && npx hardhat node"
+
+[[workflows.workflow]]
+name = "Full Stack"
+author = 41474362
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd PiMetaConnect/client && npm start"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd PiMetaConnect/server && npm start"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd PiMetaConnect/blockchain && npx hardhat node"
