@@ -1,0 +1,10 @@
+{
+  "name": "pimetaconnect",
+  "version": "1.0.0",
+  "description": "PiMetaConnect project",
+  "scripts": {
+    "start": "bash setup_replit_pimeta.sh"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
