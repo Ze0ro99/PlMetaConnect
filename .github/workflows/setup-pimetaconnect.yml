@@ -1,0 +1,79 @@
+# Workflow to automate initial setup for PiMetaConnect repository
+# Runs on repository creation or manual trigger
+# Creates issues for setup tasks and initializes documentation
+
+on:
+  create:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  setup_pimetaconnect:
+    name: Setup PiMetaConnect
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Create setup issues
+        run: |
+          echo "Creating setup issues for PiMetaConnect..."
+          mkdir -p .github/files
+          
+          # Issue 1: Frontend Setup
+          echo "Setup the frontend for PiMetaConnect:\n- Navigate to /client\n- Run `yarn install`\n- Test with `yarn start`" > .github/files/issue_frontend.md
+          gh issue create --title "Setup Frontend" -F .github/files/issue_frontend.md
+          
+          # Issue 2: Backend Setup
+          echo "Setup the backend for PiMetaConnect:\n- Navigate to /server\n- Run `yarn install`\n- Configure .env file\n- Test with `node server.js`" > .github/files/issue_backend.md
+          gh issue create --title "Setup Backend" -F .github/files/issue_backend.md
+          
+          # Issue 3: Blockchain Setup
+          echo "Setup the blockchain for PiMetaConnect:\n- Navigate to /blockchain\n- Run `yarn install`\n- Deploy contracts with `npx hardhat run scripts/deploy.js --network localhost`" > .github/files/issue_blockchain.md
+          gh issue create --title "Setup Blockchain" -F .github/files/issue_blockchain.md
+          
+          # Issue 4: Metaverse Setup
+          echo "Setup the metaverse for PiMetaConnect:\n- Open /metaverse in Unity Editor\n- Build for WebGL using the command: `unity -batchmode -projectPath . -buildTarget WebGL -executeMethod BuildScript.Build`" > .github/files/issue_metaverse.md
+          gh issue create --title "Setup Metaverse" -F .github/files/issue_metaverse.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Initialize documentation
+        run: |
+          echo "Initializing documentation..."
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout main
+
+          # Fetch remote changes to avoid conflicts
+          echo "Fetching remote changes to avoid conflicts"
+          if ! git pull origin main --rebase; then
+            echo "Rebase failed, attempting merge instead"
+            git rebase --abort
+            git pull origin main --no-rebase
+          fi
+
+          # Create or update _sidebar.md for documentation
+          mkdir -p docs
+          echo "Creating or updating _sidebar.md..."
+          echo "- [Home](/)\n- [Whitepaper](/WHITEPAPER.md)\n- [Setup Guide](#)\n  - [Frontend Setup](#)\n  - [Backend Setup](#)\n  - [Blockchain Setup](#)\n  - [Metaverse Setup](#)" > docs/_sidebar.md
+          
+          # Commit and push changes
+          git add docs/_sidebar.md
+          git commit -m "Initialize _sidebar.md for documentation" || echo "No changes to commit"
+          git push origin main
+
+          # Preserve the commit SHA
+          echo "Preserving the commit SHA..."
+          mkdir -p .github/files
+          git log --all --oneline | grep "Initialize _sidebar.md for documentation" | cut -c 1-7 >> .github/files/DOCSCOMMIT
+          git add .github/files/DOCSCOMMIT
+          git commit -m "Save documentation commit SHA in DOCSCOMMIT" || echo "No changes to commit"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
