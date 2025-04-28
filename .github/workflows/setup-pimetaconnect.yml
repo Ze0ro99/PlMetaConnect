@@ -2,6 +2,9 @@
 # Runs on repository creation or manual trigger
 # Creates issues for setup tasks and initializes documentation
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 on:
   create:
   workflow_dispatch:
