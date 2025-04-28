@@ -1,0 +1,1 @@
+- [Home](/)\n- [Whitepaper](/WHITEPAPER.md)\n- [Setup Guide](#)\n  - [Frontend Setup](#)\n  - [Backend Setup](#)\n  - [Blockchain Setup](#)\n  - [Metaverse Setup](#)
