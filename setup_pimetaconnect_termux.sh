@@ -18,7 +18,7 @@ fi
 
 # Step 2: Install Required Packages
 echo "Installing required packages..."
-pkg install -y git nodejs yarn python make clang cronie
+pkg install -y git nodejs yarn python make clang cronie termux-services
 if [ $? -ne 0 ]; then
   echo "Failed to install required packages."
   exit 1
@@ -64,6 +64,14 @@ if [ ! -d "venv" ]; then
   python3 -m venv venv
 fi
 source venv/bin/activate
+
+# Ensure requirements.txt exists
+if [ ! -f "server/requirements.txt" ]; then
+  echo "requirements.txt not found. Creating a placeholder file..."
+  mkdir -p server
+  echo "# Add your Python dependencies here" > server/requirements.txt
+fi
+
 pip install -r server/requirements.txt || echo "Python dependency installation failed. Skipping..."
 deactivate
 
@@ -85,7 +93,7 @@ fi
 
 # Step 10: Enable Cron Service
 echo "Enabling cron service..."
-termux-services enable cron
+termux-services restart
 if [ $? -ne 0 ]; then
   echo "Failed to enable cron service."
   exit 1
@@ -102,7 +110,7 @@ fi
 
 # Step 12: Restart Cron Service
 echo "Restarting cron service..."
-termux-services restart cron
+termux-services restart
 if [ $? -ne 0 ]; then
   echo "Failed to restart cron service."
   exit 1
