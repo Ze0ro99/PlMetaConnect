@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# Ensure script is executed with Termux
+# Enable debug output for troubleshooting
+set -x
+
+# Ensure script is executed in Termux
 if [ "$(uname -o)" != "Android" ]; then
   echo "This script is designed to run in Termux on Android."
   exit 1
@@ -75,6 +78,7 @@ if [ ! -f "server/requirements.txt" ]; then
   echo "requests==2.31.0" > server/requirements.txt  # Add basic dependency
 fi
 
+pip install --upgrade pip
 pip install -r server/requirements.txt || echo "Python dependency installation failed. Skipping..."
 deactivate
 
@@ -85,7 +89,7 @@ if [ ! -f "/data/data/com.termux/files/home/daily_pimetaconnect.sh" ]; then
 #!/bin/bash
 
 echo "Starting daily PiMetaConnect task..." >> /data/data/com.termux/files/home/pimetaconnect.log
-cd /data/data/com.termux/files/home/PiMetaConnect || { echo "PiMetaConnect directory not found"; exit 1; }
+cd /data/data/com.termux/files/home/PiMetaConnect || { echo "PiMetaConnect directory not found" >> /data/data/com.termux/files/home/pimetaconnect.log; exit 1; }
 source venv/bin/activate
 python3 server/daily_task.py >> /data/data/com.termux/files/home/pimetaconnect.log 2>&1
 deactivate
