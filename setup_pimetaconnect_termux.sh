@@ -43,18 +43,21 @@ mkdir -p client server blockchain
 # Step 5: Install Frontend Dependencies
 echo "Installing frontend dependencies..."
 cd client
+rm -f package-lock.json  # Remove npm lock file to avoid conflicts
 yarn install || echo "Frontend dependencies installation failed. Skipping..."
 cd ..
 
 # Step 6: Install Backend Dependencies
 echo "Installing backend dependencies..."
 cd server
+rm -f package-lock.json  # Remove npm lock file to avoid conflicts
 yarn install || echo "Backend dependencies installation failed. Skipping..."
 cd ..
 
 # Step 7: Install Blockchain Dependencies
 echo "Installing blockchain dependencies..."
 cd blockchain
+rm -f package-lock.json  # Remove npm lock file to avoid conflicts
 yarn install || echo "Blockchain dependencies installation failed. Skipping..."
 cd ..
 
@@ -69,7 +72,7 @@ source venv/bin/activate
 if [ ! -f "server/requirements.txt" ]; then
   echo "requirements.txt not found. Creating a placeholder file..."
   mkdir -p server
-  echo "# Add your Python dependencies here" > server/requirements.txt
+  echo "requests==2.31.0" > server/requirements.txt  # Add basic dependency
 fi
 
 pip install -r server/requirements.txt || echo "Python dependency installation failed. Skipping..."
@@ -91,7 +94,25 @@ EOL
   chmod +x /data/data/com.termux/files/home/daily_pimetaconnect.sh
 fi
 
-# Step 10: Enable Cron Service
+# Step 10: Create Placeholder Daily Task Script
+echo "Creating placeholder daily task script..."
+if [ ! -f "server/daily_task.py" ]; then
+  mkdir -p server
+  cat <<EOL > server/daily_task.py
+#!/usr/bin/env python3
+
+import time
+
+print("Running daily PiMetaConnect task...")
+# Add your Pi Network interaction code here
+# For example: API requests, mining operations, etc.
+time.sleep(2)  # Simulate a task that takes some time
+print("Daily task completed successfully.")
+EOL
+  chmod +x server/daily_task.py
+fi
+
+# Step 11: Enable Cron Service
 echo "Enabling cron service..."
 termux-services restart
 if [ $? -ne 0 ]; then
@@ -99,7 +120,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Step 11: Add Daily Script to Cron
+# Step 12: Add Daily Script to Cron
 echo "Adding daily script to cron for daily execution..."
 CRON_JOB="0 8 * * * /data/data/com.termux/files/usr/bin/bash /data/data/com.termux/files/home/daily_pimetaconnect.sh"
 (crontab -l 2>/dev/null; echo "$CRON_JOB") | crontab -
@@ -108,7 +129,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Step 12: Restart Cron Service
+# Step 13: Restart Cron Service
 echo "Restarting cron service..."
 termux-services restart
 if [ $? -ne 0 ]; then
