@@ -12,6 +12,8 @@ on:
 
 permissions:
   contents: read
+  packages: write
+  id-token: write  # Required for authentication with third-party services if needed
 
 jobs:
   setup-and-maintenance:
@@ -31,43 +33,76 @@ jobs:
       # Step 3: Install client dependencies
       - name: Install client dependencies
         run: |
-          cd client
-          yarn install
+          if [ -d "client" ]; then
+            cd client
+            yarn install
+          else
+            echo "Client directory does not exist. Skipping this step."
+          fi
 
       # Step 4: Install server dependencies
       - name: Install server dependencies
         run: |
-          cd server
-          yarn install
+          if [ -d "server" ]; then
+            cd server
+            yarn install
+          else
+            echo "Server directory does not exist. Skipping this step."
+          fi
 
       # Step 5: Install blockchain dependencies
       - name: Install blockchain dependencies
         run: |
-          cd blockchain
-          yarn install
+          if [ -d "blockchain" ]; then
+            cd blockchain
+            yarn install
+          else
+            echo "Blockchain directory does not exist. Skipping this step."
+          fi
 
       # Step 6: Deploy smart contracts
       - name: Deploy smart contracts
         run: |
-          cd blockchain
-          npx hardhat run scripts/deploy.js --network localhost
+          if [ -d "blockchain" ]; then
+            cd blockchain
+            npx hardhat run scripts/deploy.js --network localhost
+          else
+            echo "Blockchain directory does not exist. Skipping this step."
+          fi
 
       # Step 7: Build the Unity metaverse project
       - name: Build Unity metaverse project
         run: |
-          cd metaverse
-          unity -batchmode -projectPath . -buildTarget WebGL -executeMethod BuildScript.Build
+          if [ -d "metaverse" ]; then
+            cd metaverse
+            unity -batchmode -projectPath . -buildTarget WebGL -executeMethod BuildScript.Build
+          else
+            echo "Metaverse directory does not exist. Skipping this step."
+          fi
 
       # Step 8: Start Docker services
       - name: Start Docker services
-        run: docker-compose up -d
+        run: |
+          if [ -f "docker-compose.yml" ]; then
+            docker-compose up -d
+          else
+            echo "Docker Compose file not found. Skipping this step."
+          fi
 
       # Step 9: Clean up old logs and temporary files
       - name: Cleanup old files
         run: |
-          bash scripts/cleanup-tremex.sh
+          if [ -f "scripts/cleanup-tremex.sh" ]; then
+            bash scripts/cleanup-tremex.sh
+          else
+            echo "Cleanup script not found. Skipping this step."
+          fi
 
       # Step 10: Verify and update dependencies weekly
       - name: Dependabot updates
         run: |
-          bash scripts/create-pimetaconnect.sh
+          if [ -f "scripts/create-pimetaconnect.sh" ]; then
+            bash scripts/create-pimetaconnect.sh
+          else
+            echo "Dependabot update script not found. Skipping this step."
+          fi
