@@ -2,33 +2,33 @@
 
 A vibrant platform blending social media, metaverse, and NFTs to empower users and creators in the Pi Network ecosystem with Pi-powered transactions.
 
-## Project Highlights
+## Features
 
-- **Official Pi Network Integration**: Uses the Pi JS SDK for authentication, payments, and wallet access.
-- **Metaverse & NFT Ready**: Supports blockchain NFT contracts and Unity-based metaverse integration.
-- **Open Collaboration**: Welcomes contributors and features clear contribution, issue, and PR guidelines.
-- **Full Stack Automation**: Scripts for setup, testnet/mainnet switching, and deployment.
+- **Pi Network Integration**: Official Pi SDK for authentication, payments, and wallet access.
+- **NFT & Metaverse Ready**: Blockchain NFT contracts, Unity-based metaverse integration.
+- **Open Collaboration**: Welcomes contributors, with clear contribution and issue templates.
+- **Automation**: Scripts for setup, Testnet/Mainnet switching, and deployment.
 - **Security & Privacy**: Follows best practices for wallet security, API keys, and user data.
 
 ## Quick Start
 
-1. **Clone the repository:**
+1. **Clone the repository**
     ```sh
     git clone https://github.com/Ze0ro99/PiMetaConnect.git
     cd PiMetaConnect
     ```
 
-2. **Run Setup Script:**
+2. **Run the setup script**
     ```sh
     bash scripts/setup.sh
     ```
 
-3. **Register App in Pi Developer Portal:**
-    - Visit `pi://develop.pi` in Pi Browser.
-    - Register _both_ Mainnet and Testnet projects.
-    - Complete the app checklist (hosting, wallet connection, permissions).
+3. **Register App in Pi Developer Portal**
+    - Visit `pi://develop.pi` in the Pi Browser.
+    - Register both Mainnet and Testnet projects.
+    - Complete all checklist steps (hosting, wallet connection, permissions).
 
-4. **Start Development:**
+4. **Start Development**
     - Frontend: `cd client && npm start`
     - Backend: `cd server && npm start`
     - Blockchain: `cd blockchain && npx hardhat node`
