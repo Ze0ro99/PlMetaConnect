@@ -1,1 +1,6 @@
-- [Home](/)\n- [Whitepaper](/WHITEPAPER.md)\n- [Setup Guide](#)\n  - [Frontend Setup](#)\n  - [Backend Setup](#)\n  - [Blockchain Setup](#)\n  - [Metaverse Setup](#)
+- [Home](/)
+- [Pi Network Integration](pi-network-integration.md)
+- [Setup Guide](../README.md)
+- [Contribution Guide](../CONTRIBUTING.md)
+- [Security Policy](../SECURITY.md)
+- [Code of Conduct](../CODE_OF_CONDUCT.md)
