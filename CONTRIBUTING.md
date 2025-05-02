@@ -1,14 +1,14 @@
 # Contributing to PiMetaConnect
 
-We’re excited to welcome contributions from developers, designers, and the Pi Network community!
+Thank you for your interest in contributing to PiMetaConnect! We welcome developers, designers, and community members.
 
 ## How to Contribute
 
-- **Bug Reports & Feature Requests**: Use GitHub Issues and select the relevant template.
-- **Pull Requests**: Fork the repo, create a feature branch, and submit PRs with clear descriptions.
-- **Discussions**: Share ideas or ask for help in our [GitHub Discussions](https://github.com/Ze0ro99/PiMetaConnect/discussions).
+- **Bug Reports & Feature Requests:** Use GitHub Issues and select the relevant template.
+- **Pull Requests:** Fork the repo, create a feature branch, and submit clear PRs.
+- **Discussions:** Share ideas or ask for help in [GitHub Discussions](https://github.com/Ze0ro99/PiMetaConnect/discussions).
 
-## Coding Guidelines
+## Guidelines
 
 - Use descriptive commit messages.
 - Follow the existing code style and structure.
@@ -22,11 +22,15 @@ We’re excited to welcome contributions from developers, designers, and the Pi 
     ```sh
     bash scripts/setup.sh
     ```
-3. Start development servers for frontend, backend, and blockchain components.
+3. Start servers for frontend, backend, and blockchain.
 
-## Seeking Help?
+## Permissions and Security
+
+- Follow Pi Network permissions guidelines.
+- Do not commit sensitive credentials or API keys.
+- Use `.env` files for local environment variables.
+
+## Need Help?
 
 - Use the "[Help] Pi SDK Integration" issue template.
-- Ping the maintainers via Issues or Discussions for guidance.
-
-Thank you for helping us build the Pi Network ecosystem!
+- Join our Discussions or open an issue for guidance.
