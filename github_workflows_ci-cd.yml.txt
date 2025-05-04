@@ -1,0 +1,31 @@
+name: CI/CD Pipeline for PiMetaConnect
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set Up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Install Dependencies
+      run: |
+        cd client && yarn install && cd ..
+        cd server && yarn install && cd ..
+        cd blockchain && yarn install && cd ..
+
+    - name: Run Tests
+      run: |
+        cd client && yarn test && cd ..
+        cd server && yarn test && cd ..
